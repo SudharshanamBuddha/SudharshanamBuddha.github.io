@@ -1,34 +1,48 @@
 <?php
-$email=$_POST['email'];
-$name=$_POST['name'];
-$phone=$_POST['phone'];
-$enquiry=$_POST['enquiry'];
+$dbname = "tae";
 
-$conn = new mysqli('localhost', 'root', '','tae');
-if($conn->connect_error){
-    die('Connection Failed: '.$conn->connect_error);
-    echo "some error";
-}
-else{
-    $stmt=$conn->prepare("insert into project(email,name,phone,enquiry)
-        values(?, ?, ?, ?)");
-    $stmt->bind_param("ssis",$email,$name,$phone,$enquiry);
-    $stmt->execute();
-    echo "successful";
-    $stmt->close();
-    $conn->close();
+// Replace 'localhost', 'root' and '' with your MySQL server details
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "CREATE DATABASE tae";
+// Create database
+$sql = "CREATE DATABASE $dbname";
 if (mysqli_query($conn, $sql)) {
     echo "Database created successfully";
 } else {
     echo "Error creating database: " . mysqli_error($conn);
 }
+
+mysqli_close($conn);
+// Replace 'your_table_name' with your desired table name
 $table_name = "project";
 
 // Replace 'your_database_name' with your database name
 $dbname = "tae";
+
+// Replace 'localhost', 'root' and '' with your MySQL server details
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// SQL to create table
 $sql = "CREATE TABLE $table_name (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 email VARCHAR(30) NOT NULL,
@@ -42,7 +56,6 @@ if (mysqli_query($conn, $sql)) {
 } else {
     echo "Error creating table: " . mysqli_error($conn);
 }
-
 
 mysqli_close($conn);
 ?>
