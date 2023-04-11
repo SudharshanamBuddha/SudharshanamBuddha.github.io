@@ -6,3 +6,5 @@ name VARCHAR(30) NOT NULL,
 phone INT(30) NOT NULL,
 email VARCHAR(50) NOT NULL
 );
+git add mydatabase.sql
+git commit -m "added mydatabase.sql file"
